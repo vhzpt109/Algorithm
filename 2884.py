@@ -1,6 +1,6 @@
 if __name__ == "__main__":
     h, m = map(int, input().split())
-    if m > 45:
+    if m >= 45:
         m = m - 45
         print(h, m)
     else:
