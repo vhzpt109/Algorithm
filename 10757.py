@@ -17,15 +17,11 @@ if __name__ == "__main__":
             a = b
             b = temp
 
-    result = []
     diff = len(a) - len(b)
     for i in reversed(range(len(b))):
         sum = a[i + diff] + b[i]
         if sum >= 10:
-            if i == 0 and diff > 0:
-                a[i + diff] = sum - 10
-                a[i + diff - 1] += 1
-            elif i == 0 and diff == 0:
+            if i == 0 and diff == 0:
                 a[i + diff] = sum
             else:
                 a[i + diff] = sum - 10
@@ -33,16 +29,14 @@ if __name__ == "__main__":
         else:
             a[i + diff] = sum
 
-    # for i in reversed(range(diff)):
-    #     if a[i] >= 10:
-    #         if i == 0:
-    #             result.append(a[i] - 10)
-    #             result.append(1)
-    #         else:
-    #             result.append(a[i] - 10)
-    #             a[i - 1] += 1
-    #     else:
-    #         result.append(a[i])
+    for i in reversed(range(diff)):
+        if a[i] >= 10:
+            if i == 0:
+                a[i] -= 10
+                a.insert(0, 1)
+            else:
+                a[i] -= 10
+                a[i - 1] += 1
 
     for i in a:
         print(i, end="")
