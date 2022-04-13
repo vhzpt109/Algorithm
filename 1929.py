@@ -1,5 +1,6 @@
 import math
 
+
 def isPrime(n):
     if n == 1:
         return False
@@ -9,13 +10,10 @@ def isPrime(n):
             return False
     return True
 
+
 if __name__ == "__main__":
-    n = int(input())
+    m, n = map(int, input().split())
 
-    list = list(map(int, input().split()))
-
-    prime_cnt = 0
-    for number in list:
-        if isPrime(number):
-            prime_cnt += 1
-    print(prime_cnt)
+    for i in range(m, n + 1):
+        if isPrime(i):
+            print(i)
