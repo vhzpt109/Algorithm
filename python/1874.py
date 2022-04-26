@@ -8,26 +8,32 @@ if __name__ == "__main__":
         n_list.append(int(sys.stdin.readline()))
     n_list.reverse()
 
-    i = 0
+    i = 1
     stack = []
     stack_history = []
-    while i < n:
-        if stack[-1] == n_list[-1]:
-            stack.pop()
-            n_list.pop()
-            stack_history.append("-")
-        else:
-            i += 1
+    not_sequence = False
+    while True:
+        if len(stack) > 0:
+            if stack[-1] == n_list[-1]:
+                stack.pop()
+                n_list.pop()
+                stack_history.append("-")
+            elif stack[-1] > n_list[-1]:
+                not_sequence = True
+                break
+            else:
+                stack.append(i)
+                stack_history.append("+")
+                i += 1
+        elif i < (n + 1):
             stack.append(i)
             stack_history.append("+")
-
-        if i > n:
+            i += 1
+        else:
             break
 
-    print(stack_history)
-
-    # if stack_history.count("+") == stack_history.count("-"):
-    #     for stack in stack_history:
-    #         print(stack)
-    # else:
-    #     print("NO")
+    if not_sequence:
+        print("NO")
+    else:
+        for history in stack_history:
+            print(history)
