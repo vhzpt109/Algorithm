@@ -1,67 +1,71 @@
 import sys
 
-def check_row(board, y):
-    count = 0
-    row_sum = 0
-    zero_idx = []
 
+def available_number_check_row(board, y):
+    global available_number
+    no_number_list = []
     for i in range(9):
-        if board[y][i] == 0:
-            count += 1
-            zero_idx = (y, i)
-        else:
-            row_sum += board[y][i]
+        no_number_list.append(board[y][i])
 
-    if count == 1:
-        board[zero_idx[0]][zero_idx[1]] = 45 - row_sum
+    no_number_set = set(no_number_list)
+    no_number_set.discard(0)
+    no_number_set = set(available_number) - set(no_number_list)
 
-def check_col(board, x):
-    count = 0
-    col_sum = 0
-    zero_idx = []
+    return no_number_set
 
+
+def available_number_check_col(board, x):
+    global available_number
+    no_number_list = []
     for i in range(9):
-        if board[i][x] == 0:
-            count += 1
-            zero_idx = (i, x)
-        else:
-            col_sum += board[i][x]
+        no_number_list.append(board[i][x])
 
-    if count == 1:
-        board[zero_idx[0]][zero_idx[1]] = 45 - col_sum
+    no_number_set = set(no_number_list)
+    no_number_set.discard(0)
+    no_number_set = set(available_number) - set(no_number_list)
+
+    return no_number_set
 
 
-def check_rect(board, x, y):
-    count = 0
-    rect_sum = 0
-    zero_idx = []
-
+def available_number_check_rect(board, x, y):
+    global available_number
+    no_number_list = []
     position_x = x // 3 * 3
     position_y = y // 3 * 3
     for i in range(3):
         for j in range(3):
-            if board[position_y + i][position_x + j] == 0:
-                count += 1
-                zero_idx = (y, x)
-            else:
-                rect_sum += board[position_y + i][position_x + j]
+            no_number_list.append(board[position_y + i][position_x + j])
 
-    if count == 1:
-        board[zero_idx[0]][zero_idx[1]] = 45 - rect_sum
+    no_number_set = set(no_number_list)
+    no_number_set.discard(0)
+    no_number_set = set(available_number) - set(no_number_list)
+
+    return no_number_set
+
+
+def sdoku_backtracking(board, zero_coordinate, depth):
+    if depth == len(zero_coordinate):
+        for row_board in board:
+            print(*row_board)
+        exit(0)
+
+    for coordinate in zero_coordinate[depth:]:
+        a_b_check_row_set = available_number_check_row(board, coordinate[0])
+        a_b_check_col_set = available_number_check_col(board, coordinate[1])
+        a_b_check_rect_set = available_number_check_rect(board, coordinate[1], coordinate[0])
+
+        and_check_list = list(a_b_check_row_set & a_b_check_col_set & a_b_check_rect_set)
+        if len(and_check_list) >= 1:
+            for number in and_check_list:
+                board[coordinate[0]][coordinate[1]] = number
+                sdoku_backtracking(board, zero_coordinate, depth + 1)
+                board[coordinate[0]][coordinate[1]] = 0
+        return
 
 
 if __name__ == "__main__":
     board = [list(map(int, sys.stdin.readline().split())) for _ in range(9)]
+    zero_coordinate = [(x, y) for x in range(9) for y in range(9) if board[x][y] == 0]
+    available_number = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    while min(map(min, board)) == 0:
-        for i in range(9):
-            for j in range(9):
-                if board[i][j] == 0:
-                    check_col(board, j)
-                    check_row(board, i)
-                    check_rect(board, j, i)
-
-    for i in range(9):
-        for j in range(9):
-            print(board[i][j], end=" ")
-        print("")
+    sdoku_backtracking(board, zero_coordinate, 0)
