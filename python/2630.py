@@ -2,7 +2,6 @@ def make_color_paper(color_paper, x, y, n):
     color = color_paper[x][y]
     for i in range(x, x + n):
         for j in range(y, y + n):
-            print(color_paper[i][j])
             if color != color_paper[i][j]:
                 make_color_paper(color_paper, x, y, n // 2)
                 make_color_paper(color_paper, x + n // 2, y, n // 2)
