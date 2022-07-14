@@ -12,9 +12,9 @@ if __name__ == "__main__":
     dp[1] = p_list[1]
 
     for i in range(2, n + 1):
+        if n + 1 - i < t_list[i]:
+            continue
         for j in range(1, i):
-            if i - j < t_list[j]:
-                continue
             if i - j >= t_list[j]:
                 dp[i] = max(p_list[i] + dp[j], dp[i])
     print(max(dp))
