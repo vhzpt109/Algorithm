@@ -5,9 +5,6 @@ if __name__ == "__main__":
     dp[1] = 1
     dp[2] = 3
     for i in range(3, n + 1):
-        if i % 2 == 0:
-            dp[i] = (dp[i - 1] + dp[i - 2]) % 10007
-        else:
-            dp[i] = (dp[i - 1] + dp[i - 2] + 1) % 10007
+        dp[i] = (dp[i - 1] + 2 * dp[i - 2]) % 10007
 
     print(dp[n])
