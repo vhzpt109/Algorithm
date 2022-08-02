@@ -1,19 +1,22 @@
 import sys
 
+input = sys.stdin.readline
+
 if __name__ == "__main__":
-    s = sys.stdin.readline()
-    q = int(sys.stdin.readline())
+    s = input().rstrip()
+    q = int(input())
+
+    alphabet_prefix_sum = [[0] * 26]
+    alphabet_prefix_sum[0][ord(s[0]) - 97] = 1
+
+    for i in range(1, len(s)):
+        alphabet_prefix_sum.append(alphabet_prefix_sum[-1][:])
+        alphabet_prefix_sum[i][ord(s[i]) - 97] += 1
+
     for _ in range(q):
-        a, l, r = map(str, sys.stdin.readline().split())
+        a, l, r = map(str, input().rstrip().split())
         l, r = int(l), int(r)
-
-        s_lr = sorted(s[l:r + 1])
-        s_lr = ''.join(s_lr)
-
-        start = s_lr.find(a)
-        if start == -1:
-            sys.stdout.write(str(0) + "\n")
-            continue
-        end = s_lr.rfind(a)
-
-        sys.stdout.write(str(end - start + 1) + "\n")
+        if l == 0:
+            print(alphabet_prefix_sum[r][ord(a) - 97])
+        else:
+            print(alphabet_prefix_sum[r][ord(a) - 97] - alphabet_prefix_sum[l - 1][ord(a) - 97])
