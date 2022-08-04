@@ -1,3 +1,7 @@
+import sys
+
+input = sys.stdin.readline
+
 if __name__ == "__main__":
     n, m = map(int, input().split())
 
@@ -14,7 +18,7 @@ if __name__ == "__main__":
 
     for _ in range(m):
         y1, x1, y2, x2 = map(int, input().split())
-        if y1 == y2 and x1 == x2:
-            print(sum_list[y2 - 1][x2] - sum_list[y2 - 1][x1 - 1])
-        else:
-            print(sum_list[y2 - 1][x2] - sum_list[y2 - 1][x1 - 1] + sum_list[y1 - 1][x2] - sum_list[y1 - 1][x1 - 1])
+        result = 0
+        for y in range(y1, y2 + 1):
+            result += sum_list[y - 1][x2] - sum_list[y - 1][x1 - 1]
+        print(result)
