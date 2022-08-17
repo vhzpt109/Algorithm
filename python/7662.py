@@ -9,20 +9,33 @@ if __name__ == "__main__":
         k = int(input())
         maxheap = []
         minheap = []
-        for _ in range(k):
+        delete_list = [False] * k
+        for id in range(k):
             command, n = map(str, input().split())
             n = int(n)
 
             if command == "I":
-                heapq.heappush(maxheap, (n, n))
-                heapq.heappush(minheap, (-n, n))
+                heapq.heappush(maxheap, (-n, id))
+                heapq.heappush(minheap, (n, id))
+                delete_list[id] = True
             elif command == "D":
                 if n == 1:
-                    heapq.heappop(maxheap)
-                else:
-                    heapq.heappop(minheap)
+                    while maxheap and not delete_list[maxheap[0][1]]:
+                        heapq.heappop(maxheap)
+                    if maxheap:
+                        delete_list[heapq.heappop(maxheap)[1]] = False
+                elif n == -1:
+                    while minheap and not delete_list[minheap[0][1]]:
+                        heapq.heappop(minheap)
+                    if minheap:
+                        delete_list[heapq.heappop(minheap)[1]] = False
+
+        while maxheap and not delete_list[maxheap[0][1]]:
+            heapq.heappop(maxheap)
+        while minheap and not delete_list[minheap[0][1]]:
+            heapq.heappop(minheap)
 
         if not maxheap or not minheap:
             print("EMPTY")
         else:
-            print(heapq.heappop(maxheap)[0], heapq.heappop(minheap)[0])
+            print(-heapq.heappop(maxheap)[0], heapq.heappop(minheap)[0])
