@@ -1,35 +1,30 @@
 import sys
+sys.setrecursionlimit(10**6)
+
 
 input = sys.stdin.readline
 
-def find_parent(parent, x):
-    if parent[x] != x:
-        parent[x] = find_parent(parent, parent[x])
-    return parent[x]
+
+def dfs(node):
+    visited[node] = 1
+    for i in graph[node]:
+        if not visited[i]:
+            parent[i] = node
+            dfs(i)
 
 
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
-    else:
-        parent[a] = b
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     n = int(input())
 
+    graph = [[] for _ in range(n + 1)]
+    visited = [0] * (n + 1)
     parent = [0] * (n + 1)
-    for i in range(1, n + 1):
-        parent[i] = i
 
     for _ in range(n - 1):
-        u, v = map(int, input().split())
-        union_parent(parent, u, v)
+        a, b = map(int, input().split())
+        graph[a].append(b)
+        graph[b].append(a)
 
-    for i in range(1, n + 1):
-        find_parent(parent, i)
+    dfs(1)
 
-    for i in range(1, n + 1):
-        print(parent[i])
+    print(*parent[2:], sep='\n')
