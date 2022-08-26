@@ -6,7 +6,7 @@ input = sys.stdin.readline
 
 
 def dfs(node):
-    visited[node] = 1
+    visited[node] = True
     for i in graph[node]:
         if not visited[i]:
             parent[i] = node
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     n = int(input())
 
     graph = [[] for _ in range(n + 1)]
-    visited = [0] * (n + 1)
+    visited = [False] * (n + 1)
     parent = [0] * (n + 1)
 
     for _ in range(n - 1):
