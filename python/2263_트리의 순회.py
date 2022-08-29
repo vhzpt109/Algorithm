@@ -11,8 +11,8 @@ def preorder(inorderStart, inorderEnd, postorderStart, postorderEnd):
 
     root = postorder[postorderEnd]
 
-    left = node[root] - inorderStart
-    right = inorderEnd - node[root]
+    left = node_position[root] - inorderStart
+    right = inorderEnd - node_position[root]
 
     print(root, end=" ")
     preorder(inorderStart, inorderStart + left - 1, postorderStart, postorderStart + left - 1)
@@ -24,8 +24,8 @@ if __name__ == "__main__":
     inorder = list(map(int, input().split()))
     postorder = list(map(int, input().split()))
 
-    node = [0] * (n + 1)
+    node_position = [0] * (n + 1)
     for i in range(n):
-        node[inorder[i]] = i
+        node_position[inorder[i]] = i
 
     preorder(0, n - 1, 0, n - 1)
