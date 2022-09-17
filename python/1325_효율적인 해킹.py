@@ -1,34 +1,36 @@
 import sys
+from collections import deque
+
+
+def bfs(start):
+    count = 1
+    queue = deque([start])
+    visited = [False] * (n + 1)
+    visited[start] = True
+    while queue:
+        v = queue.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+                count += 1
+
+    return count
+
 
 input = sys.stdin.readline
-
-def find_parent(parent, x):
-    if parent[x] != x:
-        parent[x] = find_parent(parent, parent[x])
-    return parent[x]
-
-
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
-    else:
-        parent[a] = b
-
-
 if __name__ == "__main__":
     n, m = map(int, input().split())
 
-    parent = [0] * (n + 1)
-    for i in range(1, n + 1):
-        parent[i] = i
+    graph = [[] for _ in range(n + 1)]
+    visited = [False] * (n + 1)
 
     for _ in range(m):
-        u, v = map(int, input().split())
-        union_parent(parent, u, v)
+        a, b = map(int, input().split())
+        graph[a].append(b)
 
+    result = []
     for i in range(1, n + 1):
-        find_parent(parent, i)
+        result.append(bfs(i))
 
-    print(set(parent))
+    print(*result)
