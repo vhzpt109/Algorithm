@@ -27,10 +27,17 @@ if __name__ == "__main__":
 
     for _ in range(m):
         a, b = map(int, input().split())
-        graph[a].append(b)
+        graph[b].append(a)
 
+    max_count = 1
     result = []
     for i in range(1, n + 1):
-        result.append(bfs(i))
+        count = bfs(i)
+        if count > max_count:
+            max_count = count
+            result.clear()
+            result.append(i)
+        elif count == max_count:
+            result.append(i)
 
     print(*result)
