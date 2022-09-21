@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 if __name__ == "__main__":
-    code_list = os.listdir("python")
+    code_list = os.listdir("BOJ")
 
     for code in code_list:
         code = code.split('_')[0]
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         title = soup.select_one("#problem_title").get_text()
 
         try:
-            os.rename("python/" + code + ".py", "python/" + code + "_" + title + ".py")
+            os.rename("BOJ/" + code + ".py", "BOJ/" + code + "_" + title + ".py")
         except Exception as e:
             print(e)
             continue
