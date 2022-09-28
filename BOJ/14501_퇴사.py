@@ -1,20 +1,18 @@
 if __name__ == "__main__":
     n = int(input())
 
-    t_list = [0]
-    p_list = [0]
+    t_list = []
+    p_list = []
+    dp = [0] * (n + 1)
+
     for _ in range(n):
         t, p = map(int, input().split())
         t_list.append(t)
         p_list.append(p)
 
-    dp = [0] * (n + 1)
-    dp[1] = p_list[1]
-
-    for i in range(2, n + 1):
-        if n + 1 - i < t_list[i]:
-            continue
-        for j in range(1, i):
-            if i - j >= t_list[j]:
-                dp[i] = max(p_list[i] + dp[j], dp[i])
-    print(max(dp))
+    for i in range(n - 1, -1, -1):
+        if t_list[i] + i > n:
+            dp[i] = dp[i + 1]
+        else:
+            dp[i] = max(p_list[i] + dp[i + t_list[i]], dp[i + 1])
+    print(dp[0])
