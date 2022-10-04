@@ -2,23 +2,19 @@ if __name__ == "__main__":
     n = int(input())
     n_list = list(map(int, input().split()))
 
-    substract_list = []
-    for i in range(1, n):
-        substract_list.append(n_list[i] - n_list[i - 1])
-
-    a = b = 0
-    count = 0
-    for a_temp in range(1, 10):
-        for b_temp in range(1, 10):
-            for i in range(len(substract_list)):
-                if substract_list[i] == n_list[i] * a_temp + b_temp:
-                    count += 1
-                    a = a_temp
-                    b = b_temp
-
-    if count > 1:
+    if n == 1:
         print('A')
-    elif count == 0:
-        print('A')
+    elif n == 2:
+        if n_list[0] == n_list[1]:
+            print(n_list[0])
+        else:
+            print('A')
     else:
-        print(a, b)
+        if n_list[1] - n_list[0] == 0:
+            a = 0
+            b = n_list[1]
+        else:
+            a = (n_list[2] - n_list[1]) // (n_list[1] - n_list[0])
+            b = n_list[1] - n_list[0] * a
+
+    print(n_list[n - 1] * a + b)
