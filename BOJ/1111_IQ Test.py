@@ -17,4 +17,11 @@ if __name__ == "__main__":
             a = (n_list[2] - n_list[1]) // (n_list[1] - n_list[0])
             b = n_list[1] - n_list[0] * a
 
-    print(n_list[n - 1] * a + b)
+        for i in range(1, n):
+            if n_list[i] == n_list[i - 1] * a + b:
+                continue
+            else:
+                print('B')
+                exit(0)
+
+        print(n_list[n - 1] * a + b)
