@@ -28,12 +28,12 @@ def update(start, end, node, index, diff):
     if index < start or index > end:
         pass
     else:
-        tree[node] = diff
+        tree[node] += diff
         if start == end:
             pass
         else:
             mid = (start + end) // 2
-            update(start, mid, node + 2, index, diff)
+            update(start, mid, node * 2, index, diff)
             update(mid + 1, end, node * 2 + 1, index, diff)
 
 
@@ -50,6 +50,8 @@ if __name__ == "__main__":
     for _ in range(m + k):
         a, b, c = map(int, input().split())
         if a == 1:
-            update(0, n - 1, 1, b - 1, c)
+            diff = c - n_list[b - 1]
+            n_list[b - 1] = c
+            update(0, n - 1, 1, b - 1, diff)
         elif a == 2:
             print(sum(0, n - 1, 1, b - 1, c - 1))
