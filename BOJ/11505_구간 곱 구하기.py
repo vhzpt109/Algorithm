@@ -17,7 +17,7 @@ def init(start, end, node):
 
 def multiply(start, end, node, left, right):
     if left > end or right < start:
-        return
+        return 1
     elif left <= start and end <= right:
         return tree[node]
     else:
@@ -25,17 +25,18 @@ def multiply(start, end, node, left, right):
         return multiply(start, mid, node * 2, left, right) * multiply(mid + 1, end, node * 2 + 1, left, right) % DIV
 
 
-def update(start, end, node, index, diff):
+def update(start, end, node, index, value):
     if index < start or index > end:
-        pass
+        return
     else:
-        tree[node] /= diff
         if start == end:
-            pass
+            tree[node] = value
+            return
         else:
             mid = (start + end) // 2
-            update(start, mid, node * 2, index, diff)
-            update(mid + 1, end, node * 2 + 1, index, diff)
+            update(start, mid, node * 2, index, value)
+            update(mid + 1, end, node * 2 + 1, index, value)
+            tree[node] = tree[node * 2] * tree[node * 2 + 1] % DIV
 
 
 if __name__ == "__main__":
@@ -51,8 +52,7 @@ if __name__ == "__main__":
     for _ in range(m + k):
         a, b, c = map(int, input().split())
         if a == 1:
-            diff = n_list[b - 1]
             n_list[b - 1] = c
-            update(0, n - 1, 1, b - 1, diff)
+            update(0, n - 1, 1, b - 1, c)
         elif a == 2:
             print(multiply(0, n - 1, 1, b - 1, c - 1))
