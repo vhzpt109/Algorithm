@@ -2,8 +2,7 @@ import sys
 sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
-RANGE = int(2e6)
-print(RANGE)
+RANGE = int(2e6) + 2
 
 
 def search(start, end, node, kth):
@@ -21,7 +20,6 @@ def update(start, end, node, index, value):
     if index < start or index > end:
         return
     if start == end:
-        print(node)
         tree[node] += value
         return
     else:
@@ -34,12 +32,12 @@ def update(start, end, node, index, value):
 if __name__ == "__main__":
     n = int(input())
 
-    tree = [[-1] for _ in range(RANGE)]
+    tree = [0 for _ in range(4 * RANGE)]
     for _ in range(n):
         t, x = map(int, input().split())
         if t == 1:
-            update(0, RANGE, 1, x, 1)
+            update(1, RANGE, 1, x, 1)
         else:
-            kth = search(0, RANGE, 1, x)
-            update(0, RANGE, 1, kth, -1)
+            kth = search(1, RANGE, 1, x)
             print(kth)
+            update(1, RANGE, 1, kth, -1)
