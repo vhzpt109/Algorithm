@@ -14,23 +14,27 @@ if __name__ == "__main__":
             continue
 
         last_use_index, last_use_item = -1, -1
-        use_flag = False
+        stop_search_flag = False
         for j in range(n):
             for l in range(i, k):
+                use_flag = False
                 if schedule[l] == multitap[j]:
+                    use_flag = True
                     if last_use_index < l:
                         last_use_index = l
                         last_use_item = multitap[j]
-                if last_use_index == -1:
+
+                if not use_flag:
                     multitap.remove(multitap[j])
                     multitap.append(schedule[i])
                     count += 1
-                    use_flag = True
+                    stop_search_flag = True
                     break
-            if use_flag:
+
+            if stop_search_flag:
                 break
 
-        if not use_flag:
+        if stop_search_flag:
             multitap.remove(schedule[last_use_index])
             multitap.append(schedule[i])
             count += 1
