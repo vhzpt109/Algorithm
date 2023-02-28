@@ -1,14 +1,10 @@
 def rotate(arr, n):
-    if not arr:
-        return arr
-    n %= len(arr)
-    if not n:
-        return arr
+    mid = n
 
-    left = arr[:-n]
-    right = arr[-n:]
+    begin = arr[:mid]
+    end = arr[mid:]
 
-    return right + left
+    return end + begin
 
 
 if __name__ == "__main__":
@@ -19,7 +15,7 @@ if __name__ == "__main__":
     for _ in range(m):
         i, j, k = map(int, input().split())
         temp = basket[i - 1:j]
-        temp = rotate(basket, k)
+        temp = rotate(temp, k - i)
         for idx in range(j - i + 1):
             basket[i - 1 + idx] = temp[idx]
 
