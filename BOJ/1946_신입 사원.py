@@ -11,7 +11,9 @@ if __name__ == "__main__":
             applicant.append(list(map(int, input().split())))
         applicant.sort()
 
-        for i in range(len(applicant) - 1):
-            if applicant[i][1] > applicant[i + 1][1]:
+        _min = applicant[0][1]
+        for i in range(1, len(applicant)):
+            if applicant[i][1] < _min:
+                _min = applicant[i][1]
                 passer += 1
         print(passer)
