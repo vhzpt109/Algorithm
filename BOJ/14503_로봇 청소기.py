@@ -1,20 +1,35 @@
-def dfs(room, visited, x, y):
-    visited[y][x] = True
+import sys
 
-    dx = [-1, 0, 1, 0]
-    dy = [0, 1, 0, -1]
-    for i in range(4):
-        xx = x + dx[i]
-        yy = y + dy[i]
+sys.setrecursionlimit(10 ** 6)
 
-        if xx < 0 or xx >= (m - 1) or yy < 0 or yy >= (n - 1):
-            continue
-        if visited[yy][xx]:
-            continue
-        if room[yy][xx] == 1:
-            continue
+count = 0
 
-        dfs(room, visited, xx, yy)
+
+def dfs(room, x, y, d):
+    if room[y][x] == 0:
+        global count
+        count += 1
+        room[y][x] = 2
+
+    dx = [0, 1, 0, -1]
+    dy = [-1, 0, 1, 0]
+    for _ in range(4):
+        dd = (d + 3) % 4
+        xx = x + dx[dd]
+        yy = y + dy[dd]
+
+        if room[yy][xx] == 0:
+            dfs(room, xx, yy, dd)
+            return
+        d = dd
+
+    dd = (d + 2) % 4
+    xx = x + dx[dd]
+    yy = y + dy[dd]
+
+    if room[yy][xx] == 1:
+        return
+    dfs(room, xx, yy, d)
 
 
 if __name__ == "__main__":
@@ -22,15 +37,6 @@ if __name__ == "__main__":
     r, c, d = map(int, input().split())
 
     room = [list(map(int, input().split())) for _ in range(n)]
-    visited = [[False for _ in range(m)] for _ in range(n)]
 
-    dfs(room, visited, r - 1, c - 1)
-    count = 0
-    for i in range(n):
-        count += visited[i].count(True)
+    dfs(room, c, r, d)
     print(count)
-
-
-
-
-
