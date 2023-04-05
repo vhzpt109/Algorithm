@@ -5,12 +5,12 @@ from collections import deque
 
 def bfs(_map, visited, x, y, z):
     queue = deque([(x, y, z)])
-    visited[x][y][z] = 1
+    visited[y][x][z] = 1
 
     while queue:
         x, y, z = queue.popleft()
-        if x == n - 1 and y == m - 1:
-            return visited[x][y][z]
+        if x == m - 1 and y == n - 1:
+            return visited[y][x][z]
 
         dx = [0, 0, 1, -1]
         dy = [1, -1, 0, 0]
@@ -19,13 +19,12 @@ def bfs(_map, visited, x, y, z):
             yy = y + dy[i]
             if xx < 0 or xx >= m or yy < 0 or yy >= n:
                 continue
-            if _map[xx][yy] == 1 and z == 0:
+            if _map[yy][xx] == 1 and z == 0:
+                visited[yy][xx][1] = visited[y][x][0] + 1
                 queue.append((xx, yy, 1))
-                visited[xx][yy][1] = visited[x][y][0] + 1
-
-            if _map[xx][yy] == 0 and visited[xx][yy][z] == 0:
+            elif _map[yy][xx] == 0 and visited[yy][xx][z] == 0:
+                visited[yy][xx][z] = visited[y][x][z] + 1
                 queue.append((xx, yy, z))
-                visited[xx][yy][z] = visited[x][y][z] + 1
 
     return -1
 
