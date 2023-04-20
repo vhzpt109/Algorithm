@@ -1,15 +1,15 @@
 import sys
 
 input = sys.stdin.readline
-sys.setrecursionlimit(10**9)
+sys.setrecursionlimit(10**6)
 
 
-def dfs(x, wei):
-    for i in graph[x]:
-        a, b = i
-        if distance[a] == -1:
-            distance[a] = wei + b
-            dfs(a, wei + b)
+def dfs(x, weight_sum):
+    for start_node in graph[x]:
+        node, weight = start_node
+        if distance[node] == -1:
+            distance[node] = weight_sum + weight
+            dfs(node, weight_sum + weight)
 
 
 if __name__ == "__main__":
@@ -17,9 +17,9 @@ if __name__ == "__main__":
     graph = [[] for _ in range(n + 1)]
 
     for _ in range(n - 1):
-        a, b, c = map(int, input().split())
-        graph[a].append([b, c])
-        graph[b].append([a, c])
+        parent, child, weight = map(int, input().split())
+        graph[parent].append([child, weight])
+        graph[child].append([parent, weight])
 
     distance = [-1] * (n + 1)
     distance[1] = 0
