@@ -19,9 +19,8 @@ if __name__ == "__main__":
 
     for i in range(n):
         input_int_list = list(map(int, input().split()))
-        for j in range(1, len(input_int_list) - 1, 2):
-            graph[i + 1].append([input_int_list[j], input_int_list[j + 1]])
-            graph[input_int_list[j]].append([i + 1, input_int_list[j + 1]])
+        for j in range(1, len(input_int_list) - 2, 2):
+            graph[input_int_list[0]].append([input_int_list[j], input_int_list[j + 1]])
 
     distance = [-1] * (n + 1)
     distance[1] = 0
