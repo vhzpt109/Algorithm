@@ -1,49 +1,51 @@
 import sys
+sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
 
-def findNode(rootNode, previousNode, targetNode, currentPath, resultPath):
-    if rootNode == targetNode:
-        resultPath.extend(currentPath.copy())
-        return True
+def dfs(node, d):
+    visited[node] = True
+    depth[node] = d
 
-    if not tree[rootNode]:
-        return False
-
-    for node in tree[rootNode]:
-        if node == previousNode:
+    for leaf in tree[node]:
+        if visited[leaf]:
             continue
-        currentPath.append(node)
-        if findNode(node, rootNode, targetNode, currentPath, resultPath):
-            return True
-        currentPath.pop()
+        parent[leaf] = node
+        dfs(leaf, d + 1)
 
-    return False
+
+def findLCA(node1, node2):
+    while depth[node1] != depth[node2]:
+        if depth[node1] > depth[node2]:
+            node1 = parent[node1]
+        else:
+            node2 = parent[node2]
+
+    while node1 != node2:
+        node1 = parent[node1]
+        node2 = parent[node2]
+
+    return node1
 
 
 if __name__ == "__main__":
     n = int(input())
 
     tree = [[] for _ in range(n + 1)]
+    parent = [0 for _ in range(n + 1)]
+    depth = [0 for _ in range(n + 1)]
+    visited = [False for _ in range(n + 1)]
+
     for _ in range(n - 1):
         node1, node2 = map(int, input().split())
         tree[node1].append(node2)
         tree[node2].append(node1)
 
+    dfs(1, 0)
+
     m = int(input())
     for _ in range(m):
         node1, node2 = map(int, input().split())
 
-        node1Path = []
-        findNode(1, -1, node1, [1], node1Path)
-        node2Path = []
-        findNode(1, -1, node2, [1], node2Path)
-
-        lcaNode = None
-        for i in range(min(len(node1Path), len(node2Path))):
-            if node1Path[i] == node2Path[i]:
-                lcaNode = node1Path[i]
-            else:
-                break
-        print(lcaNode)
+        print(findLCA(node1, node2))
