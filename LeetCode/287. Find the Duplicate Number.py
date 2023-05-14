@@ -7,7 +7,7 @@ class Solution:
             if nums[abs(nums[i])] < 0:
                 return abs(nums[i])
 
-            nums[nums[i]] = -nums[nums[i]]
+            nums[abs(nums[i])] = -nums[abs(nums[i])]
 
 
 if __name__ == "__main__":
