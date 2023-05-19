@@ -15,7 +15,7 @@ class Solution:
             else:
                 return True
 
-        target_col = left
+        target_col = left if matrix[left][0] <= target else left - 1
 
         left = 0
         right = len(matrix[0]) - 1
@@ -37,10 +37,11 @@ class Solution:
 
 if __name__ == "__main__":
     obj = Solution()
-    matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]]
-    # matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]
+    # matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]]
+    matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]
     # matrix = [[1]]
+    # matrix = [[1], [3]]
     # target = 3
     # target = 28
-    target = 11
+    target = 28
     print(obj.searchMatrix(matrix, target))
