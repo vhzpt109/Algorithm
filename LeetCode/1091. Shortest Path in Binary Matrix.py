@@ -30,7 +30,7 @@ class Solution:
                     continue
                 if visited[yy][xx]:
                     continue
-                if grid[yy][xx] == 1:
+                if grid[yy][xx] >= 1:
                     continue
                 if xx == len(grid[0]) - 1 and yy == len(grid) - 1:
                     return c
