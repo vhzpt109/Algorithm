@@ -18,10 +18,13 @@ class Solution:
 
         while queue:
             current_node = queue.popleft()
+            current_clone = clone_graph[current_node.val]
 
             for connected_node in current_node.neighbors:
                 if connected_node.val not in clone_graph:
                     clone_graph[connected_node.val] = Node(connected_node.val, [])
                     queue.append(connected_node)
+
+                current_clone.neighbors.append(clone_graph[connected_node.val])
 
         return clone_graph[node.val]
