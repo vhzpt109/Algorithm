@@ -6,7 +6,7 @@ class Solution:
         intervals.sort(key=lambda interval:interval[1])
 
         last_end = -999999
-        count = 1
+        count = 0
         for interval in intervals:
             start = interval[0]
             end = interval[1]
