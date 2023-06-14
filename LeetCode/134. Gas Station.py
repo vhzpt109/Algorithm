@@ -3,26 +3,17 @@ from typing import List
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        length = len(gas)
+        if sum(gas) < sum(cost):
+            return -1
 
-        gas.extend(gas[:])
-        cost.extend(cost[:])
-
-        idx = 0
-        while idx < length:
-            g = gas[idx]
-            pass_flag = True
-            for i in range(1, length + 1):
-                g -= cost[idx + i]
-                if g < 0:
-                    idx = idx + i + 1
-                    pass_flag = False
-                    break
-                g += gas[idx + i]
-            if pass_flag:
-                return idx
-
-        return -1
+        idx, g = 0, 0
+        for i in range(len(gas)):
+            if g + gas[i] < cost[i]:
+                idx = i + 1
+                g = 0
+            else:
+                g += gas[i] - cost[i]
+        return idx
 
 
 if __name__ == "__main__":
