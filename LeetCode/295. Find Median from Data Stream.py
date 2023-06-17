@@ -22,7 +22,17 @@ class MedianFinder:
             heapq.heappush(self.minHeap, pop_num)
 
     def findMedian(self) -> float:
-        pass
+        if len(self.minHeap) < len(self.maxHeap):
+            small_med = -1 * self._maxHeap[0]
+            return small_med
+        elif len(self.maxHeap) < len(self.minHeap):
+            large_med = self.minHeap[0]
+            return large_med
+        else:
+            small_med = -1 * self.maxHeap[0]
+            large_med = self.minHeap[0]
+            med = (small_med + large_med) / 2
+            return med
 
 
 # Your MedianFinder object will be instantiated and called as such:
