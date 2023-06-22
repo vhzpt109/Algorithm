@@ -15,7 +15,7 @@ class MedianFinder:
 
         if len(self.maxHeap) + 1 < len(self.minHeap):
             pop_num = heapq.heappop(self.minHeap)
-            heapq.heappush(self._maxHeap, -pop_num)
+            heapq.heappush(self.maxHeap, -pop_num)
 
         elif len(self.minHeap) + 1 < len(self.maxHeap):
             pop_num = -1 * heapq.heappop(self.maxHeap)
@@ -23,7 +23,7 @@ class MedianFinder:
 
     def findMedian(self) -> float:
         if len(self.minHeap) < len(self.maxHeap):
-            small_med = -1 * self._maxHeap[0]
+            small_med = -1 * self.maxHeap[0]
             return small_med
         elif len(self.maxHeap) < len(self.minHeap):
             large_med = self.minHeap[0]
