@@ -36,12 +36,36 @@ class Solution:
 
 if __name__ == "__main__":
     obj = Solution()
-    l1 = ListNode(2)
-    l1.next = ListNode(4)
-    l1.next.next = ListNode(3)
+    # l1 = ListNode(2)
+    # l1.next = ListNode(4)
+    # l1.next.next = ListNode(3)
+    #
+    # l2 = ListNode(5)
+    # l2.next = ListNode(6)
+    # l2.next.next = ListNode(4)
 
-    l2 = ListNode(5)
-    l2.next = ListNode(4)
-    l2.next.next = ListNode(4)
+    # l1 = ListNode(5)
+    # l1.next = ListNode(3)
+    # l1.next.next = ListNode(1)
+    #
+    # l2 = ListNode(3)
+    # l2.next = ListNode(2)
+    # l2.next.next = ListNode(6)
 
-    print(obj.addTwoNumbers(l1, l2).val)
+    # l1 = ListNode(0)
+    #
+    # l2 = ListNode(1)
+    # l2.next = ListNode(2)
+    # l2.next.next = ListNode(3)
+    
+    l1 = ListNode(4)
+    l1.next = ListNode(8)
+
+    l2 = ListNode(7)
+    l2.next = ListNode(9)
+
+    node = obj.addTwoNumbers(l1, l2)
+    while node.next:
+        print(node.val, end=" ")
+        node = node.next
+    print(node.val)
