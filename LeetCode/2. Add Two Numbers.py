@@ -15,8 +15,8 @@ class Solution:
         round = 0
 
         while l1 or l2 or round != 0:
-            num1 = l1.val if l1 is not None else 0
-            num2 = l2.val if l2 is not None else 0
+            num1 = l1.val if l1 else 0
+            num2 = l2.val if l2 else 0
 
             sum = num1 + num2 + round
             val = sum % 10
@@ -26,11 +26,10 @@ class Solution:
             tail.next = newListNode
             tail = tail.next
 
-            l1 = l1.next if l1 is not None else None
-            l2 = l2.next if l2 is not None else None
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
 
         result = head.next
-        head.next = None
 
         return result
 
@@ -45,4 +44,4 @@ if __name__ == "__main__":
     l2.next = ListNode(4)
     l2.next.next = ListNode(4)
 
-    obj.addTwoNumbers(l1, l2)
+    print(obj.addTwoNumbers(l1, l2).val)
