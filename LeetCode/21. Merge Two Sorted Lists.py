@@ -17,15 +17,14 @@ class Solution:
             num1 = list1.val if list1 else 101
             num2 = list2.val if list2 else 101
 
-            min_num = min(num1, num2)
-
-            newListNode = ListNode(min_num)
-            tail.next = newListNode
-            tail = tail.next
-
             if num1 < num2:
+                tail.next = list1
+                tail = tail.next
                 list1 = list1.next if list1 else None
+
             else:
+                tail.next = list2
+                tail = tail.next
                 list2 = list2.next if list2 else None
 
         result = head.next
