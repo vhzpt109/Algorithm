@@ -21,9 +21,9 @@ class Solution:
                 break
 
             if one_step_node == two_step_node:
-                return False
+                return True
 
-        return True
+        return False
 
 
 if __name__ == "__main__":
