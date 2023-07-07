@@ -13,20 +13,18 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        pass
+        slow = fast = head  # slow, fast는 head가 가르키는 곳을 참조.
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        one_step_node = head
-        two_step_node = head
+            prev, curr = None, slow
 
-        while two_step_node:
-            if two_step_node.next:
-                one_step_node = one_step_node.next
-                two_step_node = two_step_node.next.next
-            else:
-                break
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next
 
-        return one_step_node
+
+
 
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if head is None:
