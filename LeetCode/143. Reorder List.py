@@ -13,33 +13,25 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        slow = fast = head  # slow, fast는 head가 가르키는 곳을 참조.
-        while fast and fast.next:
+        if not head:
+            return head
+
+        slow, fast = head, head
+        while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
 
-            prev, curr = None, slow
+        previous, current = None, slow.next
+        while current:
+            save = current.next
+            current.next = previous
+            previous = current
+            current = save
+        slow.next = None
 
-        while curr:
-            curr.next, prev, curr = prev, curr, curr.next
-
-
-
-
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head is None:
-            return head
-        elif head.next is None:
-            return head
-
-        current_node = head.next
-        previous_node = head
-        head.next = None
-
-        while current_node:
-            tmp_next_node = current_node.next
-            current_node.next = previous_node
-            previous_node = current_node
-            current_node = tmp_next_node
-
-        return previous_node
+        head2 = previous
+        while head2:
+            save1 = head.next
+            head.next = head2
+            head = head2
+            head2 = save1
