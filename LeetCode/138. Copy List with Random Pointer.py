@@ -35,3 +35,13 @@ class Solution(object):
 
         current_node = head
         while current_node:
+            temp_node = node_hash_map[current_node]
+            current_node_random = current_node.random
+            if current_node_random is not None:
+                random_node = node_hash_map[current_node_random]
+                temp_node.random = random_node
+            else:
+                temp_node.random = None
+            current_node = current_node.next
+
+        return dummy_head.next
