@@ -1,0 +1,13 @@
+WITH ranked_flats AS (
+    SELECT
+        id,
+        city,
+        price,
+        ROW_NUMBER() OVER (PARTITION BY city ORDER BY price, id) as ROW_NUM
+    FROM flats
+)
+
+SELECT id, city, price
+FROM ranked_flats
+WHERE ROW_NUM <= 3
+ORDER BY id;
