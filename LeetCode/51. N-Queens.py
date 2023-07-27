@@ -2,11 +2,14 @@ from typing import List
 
 
 class Solution:
+    def __init__(self):
+        self.result = []
+
     def solveNQueens(self, n: int) -> List[List[str]]:
         board = [['.'] * n for _ in range(n)]
         self.backtracking(board, 0)
 
-        return board
+        return self.result
 
     def is_available_location(self, board, x, y, n):
         for i_y in reversed(range(y)):
@@ -31,12 +34,14 @@ class Solution:
     def backtracking(self, board, y):
         for x in range(len(board[y])):
             if self.is_available_location(board, x, y, len(board)):
-                if y == len(board) - 1:
-                    return True
                 board[y][x] = 'Q'
-                if self.backtracking(board, y + 1):
-                    return True
-                board[y][x] = '.'
+                if y == len(board) - 1:
+                    self.result.append([''.join(row) for row in board])
+                    board[y][x] = '.'
+                    return
+                else:
+                    self.backtracking(board, y + 1)
+                    board[y][x] = '.'
 
 
 if __name__ == "__main__":
