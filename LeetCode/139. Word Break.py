@@ -5,6 +5,7 @@ class Solution:
     def __init__(self):
         self.s = None
         self.word_table = None
+        self.memory = {}
 
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         self.s = s
@@ -19,13 +20,18 @@ class Solution:
         return False
 
     def backtracking(self, begin, last):
+        if self.s[begin:last + 1] in self.memory:
+            return self.memory[self.s[begin:last + 1]]
+
         if self.s[begin:last + 1] in self.word_table:
+            self.memory[self.s[begin:last + 1]] = True
             return True
 
         for i in range(begin, last):
             if self.backtracking(begin, i) and self.backtracking(i + 1, last):
                 return True
 
+        self.memory[self.s[begin:last + 1]] = False
         return False
 
 
