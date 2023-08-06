@@ -23,7 +23,7 @@ class Solution:
             return True
 
         for i in range(begin, last):
-            if self.backtracking(i, last - i - 1) and self.backtracking(last - i, last):
+            if self.backtracking(begin, i) and self.backtracking(i + 1, last):
                 return True
 
         return False
@@ -31,10 +31,7 @@ class Solution:
 
 if __name__ == "__main__":
     obj = Solution()
-    # s = "leetcode"
-    # wordDict = ["leet", "code"]
-    # s = "applepenapple"
-    # wordDict = ["apple", "pen"]
-    s = "a"
-    wordDict = ["a"]
-    print(obj.wordBreak(s, wordDict))
+    print(obj.wordBreak(s="leetcode", wordDict=["leet", "code"]))
+    print(obj.wordBreak(s="applepenapple", wordDict=["apple", "pen"]))
+    print(obj.wordBreak(s="a", wordDict=["a"]))
+    print(obj.wordBreak(s="aaaaaaa", wordDict=["aaaa", "aa"]))
