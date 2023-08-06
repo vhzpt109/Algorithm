@@ -10,19 +10,20 @@ class Solution:
         self.s = s
         self.word_table = dict.fromkeys(wordDict)
 
+        if self.s in self.word_table:
+            return True
+
         for i in range(len(s)):
-            if self.backtracking(0, i):
+            if self.backtracking(0, i) and self.backtracking(i + 1, len(self.s)):
                 return True
         return False
 
     def backtracking(self, begin, last):
-        if not self.word_table.get(self.s[begin:last + 1]):
-            return False
-        if len(self.s) == last + 1:
+        if self.s[begin:last + 1] in self.word_table:
             return True
 
-        for i in range(last + 1, len(self.s)):
-            if self.backtracking(last + 1, i):
+        for i in range(begin, last):
+            if self.backtracking(i, last - i - 1) and self.backtracking(last - i, last):
                 return True
 
         return False
@@ -30,6 +31,10 @@ class Solution:
 
 if __name__ == "__main__":
     obj = Solution()
-    s = "leetcode"
-    wordDict = ["leet", "code"]
+    # s = "leetcode"
+    # wordDict = ["leet", "code"]
+    # s = "applepenapple"
+    # wordDict = ["apple", "pen"]
+    s = "a"
+    wordDict = ["a"]
     print(obj.wordBreak(s, wordDict))
