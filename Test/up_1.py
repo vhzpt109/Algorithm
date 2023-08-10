@@ -1,4 +1,7 @@
-def solution(p, n):
+from typing import Tuple
+
+
+def solution(p, n) -> str:
     ampm, time = p.split(' ')
     hour, minute, second = map(int, time.split(':'))
     if ampm == "PM":
@@ -12,7 +15,7 @@ def solution(p, n):
     return answer
 
 
-def get_extra_time(second):
+def get_extra_time(second) -> Tuple[int, int, int]:
     extra_hour = second // 3600
     second -= extra_hour * 3600
     extra_minute = second // 3600
@@ -20,7 +23,7 @@ def get_extra_time(second):
     return extra_hour, extra_minute, extra_second
 
 
-def time_compensate(hour, minute, second):
+def time_compensate(hour, minute, second) -> Tuple[int, int, int]:
     minute += (second // 60)
     second = second % 60
     hour += (minute // 60)

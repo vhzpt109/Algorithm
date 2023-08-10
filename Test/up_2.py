@@ -1,7 +1,7 @@
 import math
 
 
-def solution(resistors):
+def solution(resistors) -> int:
     min_amp = 10001
     sum_ohm = 0
     for resistor in resistors:
